@@ -39,14 +39,6 @@ public class User {
                      .get();
     }
     
-    public Status status() {
-        return Arrays.asList(Status.values())
-                     .stream()
-                     .filter(r -> r.name().toLowerCase().equals(status))
-                     .findAny()
-                     .get();
-    }
-    
     public DateTime created_at() {
         return toDateTime(created_at);
     }
@@ -69,10 +61,5 @@ public class User {
         owner,
         manager,
         banned;
-    }
-    
-    public static enum Status {
-        busy,
-        available;
     }
 }
