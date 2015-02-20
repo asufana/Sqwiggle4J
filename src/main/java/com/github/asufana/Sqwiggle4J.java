@@ -1,6 +1,8 @@
 package com.github.asufana;
 
-import rx.*;
+import java.util.*;
+
+import rx.Observable;
 
 import com.github.asufana.resources.*;
 import com.google.gson.reflect.*;
@@ -18,5 +20,16 @@ public class Sqwiggle4J extends AbstractSqwiggle4J {
         return request(token,
                        BASE_URL + "/users/" + userId.toString(),
                        new TypeToken<User>() {});
+    }
+    
+    public Observable<User> users() {
+        final Observable<List<User>> userList = userList();
+        return flat(userList);
+    }
+    
+    Observable<List<User>> userList() {
+        return request(token,
+                       BASE_URL + "/users",
+                       new TypeToken<List<User>>() {});
     }
 }

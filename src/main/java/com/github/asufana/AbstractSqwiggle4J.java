@@ -1,8 +1,12 @@
 package com.github.asufana;
 
+import java.util.*;
+
 import org.apache.http.client.fluent.*;
 
 import rx.*;
+import rx.Observable;
+import rx.functions.*;
 
 import com.google.gson.reflect.*;
 
@@ -14,6 +18,15 @@ public abstract class AbstractSqwiggle4J {
         return Observable.create(new RequestSubscriber(token, url))
                          .map(content -> Response.parse(content))
                          .map(response -> response.toObject(typeToken));
+    }
+    
+    protected <T> Observable<T> flat(final Observable<List<T>> entities) {
+        return entities.flatMap(new Func1<List<T>, rx.Observable<T>>() {
+            @Override
+            public rx.Observable<T> call(final List<T> entities) {
+                return rx.Observable.from(entities);
+            }
+        });
     }
     
     private static class RequestSubscriber implements Observable.OnSubscribe<Content> {
