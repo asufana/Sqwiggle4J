@@ -16,34 +16,33 @@ public class User extends AbstractResource {
     
     private Integer id;
     private String role;
-    @SerializedName("media_device_id")
-    private String mediaDeviceId;
     private String status;
+    private boolean confirmed;
     private String message;
-    private String name;
     private String email;
+    private String name;
     private String avatar;
+    @SerializedName("time_zone")
+    private String timeZone;
+    @SerializedName("is_contact")
+    private boolean isContact;
+    private Contact contact;
+    @SerializedName("time_zone_offset")
+    private String timeZoneOffset;
     private String snapshot;
     @SerializedName("snapshot_interval")
     private Integer snapshotInterval;
-    private boolean confirmed;
-    @SerializedName("is_contact")
-    private boolean isContact;
-    private boolean support;
-    @SerializedName("idle_at")
-    private String idleAt;
-    private Contact contact;
-    
-    @SerializedName("time_zone")
-    private String timeZone;
-    @SerializedName("time_zone_offset")
-    private String timeZoneOffset;
-    @SerializedName("created_at")
-    private String createdAt;
     @SerializedName("last_active_at")
     private String lastActiveAt;
     @SerializedName("last_connected_at")
     private String lastConnectedAt;
+    @SerializedName("created_at")
+    private String createdAt;
+    @SerializedName("media_device_id")
+    private String mediaDeviceId;
+    @SerializedName("idle_at")
+    private String idleAt;
+    private boolean support;
     
     @Value
     @Accessors(fluent = true)
