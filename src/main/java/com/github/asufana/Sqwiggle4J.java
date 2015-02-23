@@ -32,4 +32,22 @@ public class Sqwiggle4J extends AbstractSqwiggle4J {
                        BASE_URL + "/users",
                        new TypeToken<List<User>>() {});
     }
+    
+    public Observable<Message> message(final Integer messageId) {
+        return request(token,
+                       BASE_URL + "/messages/" + messageId.toString(),
+                       new TypeToken<Message>() {});
+    }
+    
+    public Observable<Message> messages() {
+        final Observable<List<Message>> messageList = messageList();
+        return flat(messageList);
+    }
+    
+    Observable<List<Message>> messageList() {
+        return request(token,
+                       BASE_URL + "/messages",
+                       new TypeToken<List<Message>>() {});
+    }
+    
 }
