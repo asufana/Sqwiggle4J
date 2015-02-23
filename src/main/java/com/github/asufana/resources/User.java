@@ -44,20 +44,6 @@ public class User extends AbstractResource {
     private String idleAt;
     private boolean support;
     
-    @Value
-    @Accessors(fluent = true)
-    @ToString
-    public static class Contact {
-        private Integer id;
-        private String state;
-        @SerializedName("user_id")
-        private Integer userId;
-        @SerializedName("contact_id")
-        private Integer contactId;
-        @SerializedName("created_at")
-        private String createdAt;
-    }
-    
     public DateTime createdAt() {
         return toDateTime(createdAt);
     }
@@ -68,6 +54,25 @@ public class User extends AbstractResource {
     
     public DateTime lastConnectedAt() {
         return toDateTime(lastConnectedAt);
+    }
+    
+    @Value
+    @Accessors(fluent = true)
+    @EqualsAndHashCode(callSuper = true)
+    @ToString
+    public static class Contact extends AbstractResource {
+        private Integer id;
+        private String state;
+        @SerializedName("user_id")
+        private Integer userId;
+        @SerializedName("contact_id")
+        private Integer contactId;
+        @SerializedName("created_at")
+        private String createdAt;
+        
+        public DateTime created_at() {
+            return toDateTime(createdAt);
+        }
     }
     
 }
