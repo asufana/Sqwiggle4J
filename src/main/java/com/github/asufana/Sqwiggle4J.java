@@ -40,14 +40,34 @@ public class Sqwiggle4J extends AbstractSqwiggle4J {
     }
     
     public Observable<Message> messages() {
-        final Observable<List<Message>> messageList = messageList();
+        return messages(null, null);
+    }
+    
+    public Observable<Message> messages(final Integer page, final Integer limit) {
+        final Observable<List<Message>> messageList = messageList(page, limit);
         return flat(messageList);
     }
     
-    Observable<List<Message>> messageList() {
+    Observable<List<Message>> messageList(final Integer page,
+                                          final Integer limit) {
         return request(token,
-                       BASE_URL + "/messages",
+                       String.format("%s/messages?%s&%s",
+                                     BASE_URL,
+                                     pageParamString(page),
+                                     limitParamString(limit)),
                        new TypeToken<List<Message>>() {});
+    }
+    
+    private String pageParamString(final Integer page) {
+        return String.format("page=%s", page != null
+                ? page.toString()
+                : "1");
+    }
+    
+    private String limitParamString(final Integer limit) {
+        return String.format("limit=%s", limit != null
+                ? limit.toString()
+                : "100");
     }
     
 }
